@@ -2,9 +2,25 @@ sequenceDiagram
 participant browser
 participant server
 
-    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa
     activate server
-    server-->>browser: HTTP 201 
+    server-->>browser: HTTP 200 / HTML document
     deactivate server
 
-    Note right of server: JS from server fetches form element from page, prevents GET request, new note is created, note is sent to server and notes are rendered on page
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server-->>browser: CSS file
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+    activate server
+    server-->>browser: JS file
+    deactivate server
+
+    Note right of browser: Browser runs JS 
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate server
+    server-->>browser: browser renders notes on page 
+    deactivate server
